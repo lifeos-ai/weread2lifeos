@@ -108,11 +108,16 @@ class NotionHelper:
             raise Exception(f"获取NotionID失败，请检查输入的Url是否正确")
 
     def search_database(self, block_id):
-        children = self.client.blocks.children.list(block_id=block_id)["results"]
+        try:
+            children = self.client.blocks.children.list(block_id=block_id)["results"]
+        except Exception as e:
+            # 以防有的数据库没有权限
+            children = []
         # 遍历子块
         for child in children:
             # 检查子块的类型
             if child["type"] == "child_database":
+                print("add database %s" % child.get("child_database").get("title"))
                 self.database_id_dict[child.get("child_database").get("title").strip()] = (
                     child.get("id")
                 )
@@ -225,7 +230,7 @@ class NotionHelper:
 
         properties = {}
         return self.get_reltion_id_by_property(
-            "【兼容】日期", day, "date", self.day_database_id, DATE_EMOJ_ICON, properties
+            "日期", day, "date", self.day_database_id, DATE_EMOJ_ICON, properties
         )
     def get_day_relation_id_old(self, date):
         new_date = date.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -279,12 +284,12 @@ class NotionHelper:
         filter = {"property": property_name, property_type: {"equals": property_value}}
         response = self.client.databases.query(database_id=id, filter=filter)
         if len(response.get("results")) == 0:
-            raise Exception("未找到该日期")
-            #parent = {"database_id": id, "type": "database_id"}
-            #properties["标题"] = get_title(name)
-            #page_id = self.client.pages.create(
-            #    parent=parent, properties=properties, icon=get_icon(icon)
-            #).get("id")
+            #raise Exception("未找到该日期")
+            parent = {"database_id": id, "type": "database_id"}
+            properties["日"] = get_title(property_value)
+            page_id = self.client.pages.create(
+                parent=parent, properties=properties, icon=get_icon(icon)
+            ).get("id")
         else:
             page_id = response.get("results")[0].get("id")
         self.__cache[key] = page_id

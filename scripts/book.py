@@ -103,12 +103,12 @@ def insert_book_to_notion(books, index, bookId):
         book["ISBN"] = book.get("isbn")
         book["链接"] = utils.get_weread_url(bookId)
         #book["简介"] = book.get("intro")
-        book["作者"] = [
-            notion_helper.get_relation_id(
-                x, notion_helper.author_database_id, USER_ICON_URL
-            )
-            for x in book.get("author").split(" ")
-        ]
+        #book["作者"] = [
+        #    notion_helper.get_relation_id(
+        #        x, notion_helper.author_database_id, USER_ICON_URL
+        #    )
+        #    for x in book.get("author").split(" ")
+        #]
         #if book.get("categories"):
         #    book["分类"] = [
         #        notion_helper.get_relation_id(
@@ -264,13 +264,13 @@ if __name__ == "__main__":
             title = bs['title'] if bs and 'title' in bs else ""
             print(f"正在插入《{title}》,一共{len}本，当前是第{index + 1}本。")
 
-            if bp and bp['readingTime'] < 600:
-                print(f"《{title}》阅读不超时10分钟，跳过")
+            if bp and bp['readingTime'] < 60:
+                print(f"《{title}》阅读不超时1分钟，跳过")
                 continue
 
-            if not nt:
-                print(f"《{title}》没有阅读笔记，跳过")
-                continue
+            #if not nt:
+            #    print(f"《{title}》没有阅读笔记，跳过")
+            #    continue
 
             insert_book_to_notion(books, index, bookId)
         except Exception as e:
