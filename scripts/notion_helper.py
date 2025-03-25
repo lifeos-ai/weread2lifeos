@@ -105,7 +105,9 @@ class NotionHelper:
         if match:
             return match.group(0)
         else:
-            raise Exception(f"获取NotionID失败，请检查输入的Url是否正确：{notion_url}")
+            error_msg = f"提取失败，请检查输入链接。问题链接 -> {notion_url}"
+            print(f"::warning:: {error_msg}")  # 使用 GitHub 命令输出非敏感日志
+            raise ValueError("提取NotoinID失败，请检查输入链接（完整链接已打印在警告日志中）")
 
     def search_database(self, block_id):
         try:
