@@ -246,6 +246,10 @@ if __name__ == "__main__":
             #这里判定Notion中的书籍和微信中的书籍是否有属性发现变化，没有的话就不需要同步了
             not_need_sync.append(key)
             #continue
+    print("不需要同步的书籍")
+    print(not_need_sync)
+    print("微信notebook的所有书籍...")
+    print(notebooks)
     notebooks = weread_api.get_notebooklist()
     notebooks_map = {d["bookId"] : d for d in notebooks if "bookId" in d}
     notebooks = [d["bookId"] for d in notebooks if "bookId" in d]
