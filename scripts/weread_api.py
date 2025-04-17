@@ -114,7 +114,14 @@ class WeReadApi:
     def get_read_info(self, bookId):
         self.session.get(WEREAD_URL)
         params = dict(
-            bookId=bookId, readingDetail=1, readingBookIndex=1, finishedDate=1
+            noteCount=1,
+            readingDetail=1,
+            finishedBookIndex=1,
+            readingBookCount=1,
+            readingBookIndex=1,
+            finishedBookCount=1,
+            bookId=bookId,
+            finishedDate=1,
         )
         r = self.session.get(WEREAD_READ_INFO_URL, params=params)
         if r.ok:
