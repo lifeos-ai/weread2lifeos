@@ -207,6 +207,8 @@ if __name__ == "__main__":
     weread_api = WeReadApi()
     notion_helper = NotionHelper()
     notion_books = notion_helper.get_all_book()
+    print("notion已有书籍...")
+    print(notion_books)
     bookshelf_books = weread_api.get_bookshelf()
     print("微信书架上的所有数据...")
     print(bookshelf_books)
