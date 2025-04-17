@@ -45,7 +45,7 @@ jobs:
           pip install -r requirements.txt
       - name: weread book sync
         run: |
-          python -u scripts/book.py > debug.txt
+          python -u scripts/book.py
         env:
           PYTHONUNBUFFERED: 1  # 禁用缓冲
           ACTIONS_STEP_DEBUG: true  # 开启详细日志
