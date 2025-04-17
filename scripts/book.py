@@ -127,7 +127,7 @@ def insert_book_to_notion(books, index, bookId):
     #    print(f"《{book.get('title')}》没有阅读记录，跳过")
     #    return
 
-    if book.get("readDetail") and book.get("readDetail").get("data")::
+    if book.get("readDetail") and book.get("readDetail").get("data"):
         #取书籍的阅读记录，可能有多天
         book['时间'] = [x['readDate'] for x in book.get('readDetail').get('data')]
         notion_helper.get_date_relations(
