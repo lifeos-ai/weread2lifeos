@@ -119,9 +119,9 @@ def insert_book_to_notion(books, index, bookId):
     properties = utils.get_properties(book, book_properties_type_dict)
 
     #print(f"正在插入《{book.get('title')}》,一共{len(books)}本，当前是第{index+1}本。")
-    if not book.get("readDetail") or not book.get("readDetail").get("data"):
-        print(f"《{book.get('title')}》没有阅读记录，跳过")
-        return
+    #if not book.get("readDetail") or not book.get("readDetail").get("data"):
+    #    print(f"《{book.get('title')}》没有阅读记录，跳过")
+    #    return
 
     if book.get("时间"):
         #取书籍的阅读记录，可能有多天
@@ -207,7 +207,11 @@ if __name__ == "__main__":
     weread_api = WeReadApi()
     notion_helper = NotionHelper()
     notion_books = notion_helper.get_all_book()
+    print("notion已有书籍...")
+    print(notion_books)
     bookshelf_books = weread_api.get_bookshelf()
+    print("微信书架上的所有数据...")
+    print(bookshelf_books)
     # 有阅读记录的图书信息
     # 样例数据：{'$bookId': {'bookId': '26062915', 'progress': 1, 'chapterUid': 8, 'chapterOffset': 0,
     #   'chapterIdx': 8, 'appId'： '11413501'， 'updateTime': 1691221509, 'readingTime': 875,
@@ -244,7 +248,11 @@ if __name__ == "__main__":
             #这里判定Notion中的书籍和微信中的书籍是否有属性发现变化，没有的话就不需要同步了
             not_need_sync.append(key)
             #continue
+    print("不需要同步的书籍")
+    print(not_need_sync)
     notebooks = weread_api.get_notebooklist()
+    print("微信notebook的所有书籍...")
+    print(notebooks)
     notebooks_map = {d["bookId"] : d for d in notebooks if "bookId" in d}
     notebooks = [d["bookId"] for d in notebooks if "bookId" in d]
 
