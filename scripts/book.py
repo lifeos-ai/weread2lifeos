@@ -53,12 +53,12 @@ def insert_book_to_notion(books, index, bookId):
         book.update(notion_books.get(bookId))
 
     bookInfo = weread_api.get_bookinfo(bookId)
-    print("获取书籍详情....")
+    print("获取书籍详情....", flush=True)
     print(bookInfo)
     if bookInfo != None:
         book.update(bookInfo)
     readInfo = weread_api.get_read_info(bookId)
-    print("获取书籍的阅读详情...")
+    print("获取书籍的阅读详情...", flush=True)
     print(readInfo)
     # 研究了下这个状态不知道什么情况有的虽然读了状态还是1 markedStatus = 1 想读 4 读完 其他为在读
     readInfo.update(readInfo.get("readDetail", {}))
