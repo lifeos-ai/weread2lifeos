@@ -119,9 +119,9 @@ def insert_book_to_notion(books, index, bookId):
     properties = utils.get_properties(book, book_properties_type_dict)
 
     #print(f"正在插入《{book.get('title')}》,一共{len(books)}本，当前是第{index+1}本。")
-    if not book.get("readDetail") or not book.get("readDetail").get("data"):
-        print(f"《{book.get('title')}》没有阅读记录，跳过")
-        return
+    #if not book.get("readDetail") or not book.get("readDetail").get("data"):
+    #    print(f"《{book.get('title')}》没有阅读记录，跳过")
+    #    return
 
     if book.get("时间"):
         #取书籍的阅读记录，可能有多天
