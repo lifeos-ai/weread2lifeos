@@ -46,6 +46,8 @@ jobs:
       - name: weread book sync
         run: |
           python -u scripts/book.py
+        env:
+          PYTHONUNBUFFERED: 1  # 禁用缓冲
       - name: weread sync
         run: |
           python -u scripts/weread.py
