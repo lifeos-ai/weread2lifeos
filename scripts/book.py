@@ -208,6 +208,8 @@ if __name__ == "__main__":
     notion_helper = NotionHelper()
     notion_books = notion_helper.get_all_book()
     bookshelf_books = weread_api.get_bookshelf()
+    print("微信书架上的所有数据...")
+    print(bookshelf_books)
     # 有阅读记录的图书信息
     # 样例数据：{'$bookId': {'bookId': '26062915', 'progress': 1, 'chapterUid': 8, 'chapterOffset': 0,
     #   'chapterIdx': 8, 'appId'： '11413501'， 'updateTime': 1691221509, 'readingTime': 875,
