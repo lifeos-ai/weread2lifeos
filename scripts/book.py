@@ -250,9 +250,9 @@ if __name__ == "__main__":
             #continue
     print("不需要同步的书籍")
     print(not_need_sync)
+    notebooks = weread_api.get_notebooklist()
     print("微信notebook的所有书籍...")
     print(notebooks)
-    notebooks = weread_api.get_notebooklist()
     notebooks_map = {d["bookId"] : d for d in notebooks if "bookId" in d}
     notebooks = [d["bookId"] for d in notebooks if "bookId" in d]
 
