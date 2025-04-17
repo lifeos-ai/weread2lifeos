@@ -114,12 +114,28 @@ class WeReadApi:
     def get_read_info(self, bookId):
         self.session.get(WEREAD_URL)
         params = dict(
-            bookId=bookId, readingDetail=1, readingBookIndex=1, finishedDate=1
+            noteCount=1,
+            readingDetail=1,
+            finishedBookIndex=1,
+            readingBookCount=1,
+            readingBookIndex=1,
+            finishedBookCount=1,
+            bookId=bookId,
+            finishedDate=1,
         )
-        r = self.session.get(WEREAD_READ_INFO_URL, params=params)
+        headers = {
+            "baseapi":"32",
+            "appver":"8.2.5.10163885",
+            "basever":"8.2.5.10163885",
+            "osver":"12",
+            "User-Agent": "WeRead/8.2.5 WRBrand/xiaomi Dalvik/2.1.0 (Linux; U; Android 12; Redmi Note 7 Pro Build/SQ3A.220705.004)",
+        }
+        r = self.session.get(WEREAD_READ_INFO_URL,headers=headers, params=params)
         if r.ok:
             return r.json()
         else:
+            errcode = r.json().get("errcode",0)
+            self.handle_errcode(errcode)
             raise Exception(f"get {bookId} read info failed {r.text}")
 
     @retry(stop_max_attempt_number=3, wait_fixed=5000)

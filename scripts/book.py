@@ -53,9 +53,13 @@ def insert_book_to_notion(books, index, bookId):
         book.update(notion_books.get(bookId))
 
     bookInfo = weread_api.get_bookinfo(bookId)
+    print("获取书籍详情....", flush=True)
+    print(bookInfo)
     if bookInfo != None:
         book.update(bookInfo)
     readInfo = weread_api.get_read_info(bookId)
+    print("获取书籍的阅读详情...", flush=True)
+    print(readInfo)
     # 研究了下这个状态不知道什么情况有的虽然读了状态还是1 markedStatus = 1 想读 4 读完 其他为在读
     readInfo.update(readInfo.get("readDetail", {}))
     readInfo.update(readInfo.get("bookInfo", {}))
@@ -84,7 +88,7 @@ def insert_book_to_notion(books, index, bookId):
         date = book.get("lastReadingDate")
     elif book.get("readingBookDate"):
         date = book.get("readingBookDate")
-    book["时间"] = date
+    #book["时间"] = date
     book["类型"] = "书籍"
     #book["开始阅读时间"] = book.get("beginReadingDate")
     #book["最后阅读时间"] = book.get("lastReadingDate")
@@ -123,7 +127,7 @@ def insert_book_to_notion(books, index, bookId):
     #    print(f"《{book.get('title')}》没有阅读记录，跳过")
     #    return
 
-    if book.get("时间"):
+    if book.get("readDetail") and book.get("readDetail").get("data"):
         #取书籍的阅读记录，可能有多天
         book['时间'] = [x['readDate'] for x in book.get('readDetail').get('data')]
         notion_helper.get_date_relations(
@@ -272,9 +276,9 @@ if __name__ == "__main__":
             title = bs['title'] if bs and 'title' in bs else ""
             print(f"正在插入《{title}》,一共{len}本，当前是第{index + 1}本。")
 
-            if bp and bp['readingTime'] < 60:
-                print(f"《{title}》阅读不超时1分钟，跳过")
-                continue
+            #if bp and bp['readingTime'] < 60:
+            #    print(f"《{title}》阅读不超时1分钟，跳过")
+            #    continue
 
             #if not nt:
             #    print(f"《{title}》没有阅读笔记，跳过")

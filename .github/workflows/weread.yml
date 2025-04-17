@@ -46,6 +46,15 @@ jobs:
       - name: weread book sync
         run: |
           python -u scripts/book.py
+        env:
+          PYTHONUNBUFFERED: 1  # 禁用缓冲
+          ACTIONS_STEP_DEBUG: true  # 开启详细日志
+      - name: Upload debug output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-logs
+          path: debug.txt
       - name: weread sync
         run: |
           python -u scripts/weread.py
