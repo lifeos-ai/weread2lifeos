@@ -92,8 +92,8 @@ class NotionHelper:
             self.database_name_dict.get("READ_DATABASE_NAME")
         )
         self.update_book_database()
-        if self.read_database_id is None:
-            self.create_database()
+        #if self.read_database_id is None:
+        #    self.create_database()
         print("notion helper完成初始化", datetime.now())
 
     def extract_page_id(self, notion_url):
