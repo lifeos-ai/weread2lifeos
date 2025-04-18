@@ -154,7 +154,7 @@ def insert_book_to_notion(books, index, bookId):
     if book.get("readDetail") and book.get("readDetail").get("data"):
         data = book.get("readDetail").get("data")
         data = {item.get("readDate"): item.get("readTime") for item in data}
-        insert_read_data(page_id, data)
+        #insert_read_data(page_id, data)
 
 
 def insert_read_data(page_id, readTimes):
