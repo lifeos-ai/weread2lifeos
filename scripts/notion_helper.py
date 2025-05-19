@@ -487,6 +487,7 @@ class NotionHelper:
         #        self.get_week_relation_id(date),
         #    ]
         #
+	# test push
         properties["阅读日"] = get_relation(
             [
                 self.get_day_relation_id(date),
